@@ -1,9 +1,16 @@
 import { Box } from "@/src/components/Box";
-import { Text } from "@/src/components/Text";
+import { CityCard } from "@/src/components/CityCard";
+import { cityPreviewList } from "@/src/data/cities";
 import { useAppTheme } from "@/src/theme/useAppTheme";
+import { CityPreview } from "@/src/types";
+import { FlatList, ListRenderItemInfo } from "react-native";
 
 export default function HomeScreen() {
-  const theme = useAppTheme();
+  const { colors } = useAppTheme();
+
+  function renderItem({ item }: ListRenderItemInfo<CityPreview>) {
+    return <CityCard cityPreview={item} />;
+  }
 
   return (
     <Box
@@ -12,8 +19,7 @@ export default function HomeScreen() {
       alignItems="center"
       backgroundColor="mainBackground"
     >
-      <Text color="text">Home Screen</Text>
-      <Text color="text">{theme.colors.text}</Text>
+      <FlatList data={cityPreviewList} renderItem={renderItem} />
     </Box>
   );
 }
